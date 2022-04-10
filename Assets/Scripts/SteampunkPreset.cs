@@ -10,10 +10,12 @@ public class SteampunkPreset : MonoBehaviour
     public float time = 3;
     public GameObject player;
     SpriteRenderer playerSr;
+    SphereBullet Bull;
 
     void Start()
     {
         playerSr = player.GetComponent<SpriteRenderer>();
+        Bull = sphere.GetComponent<SphereBullet>();
     }
 
     // Update is called once per frame
@@ -22,11 +24,27 @@ public class SteampunkPreset : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Q)){
             if (!playerSr.flipX)
             {
-                Instantiate(sphere, Startpos.position, Quaternion.identity);
+                if (Bull.force > 0)
+                {
+                    Instantiate(sphere, Startpos.position, Quaternion.identity);
+                }
+                else
+                {
+                    Bull.force *= -1;
+                    Instantiate(sphere, Startpos.position, Quaternion.identity);
+                }
             }
             else
             {
-                Instantiate(sphere, Backpos.position, Quaternion.identity);
+                if (Bull.force < 0)
+                {
+                    Instantiate(sphere, Backpos.position, Quaternion.identity);
+                }
+                else
+                {
+                    Bull.force *= -1;
+                    Instantiate(sphere, Backpos.position, Quaternion.identity);
+                }
             }
         }
     }

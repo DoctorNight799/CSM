@@ -115,7 +115,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   force: 1
   timeDestroy: 1
-  player: {fileID: 7125769935468209664, guid: 4053de8411fa82343a5fee448d07d850, type: 3}
 --- !u!50 &2113735892832901871
 Rigidbody2D:
   serializedVersion: 4
