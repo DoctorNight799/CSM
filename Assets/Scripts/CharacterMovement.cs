@@ -4,19 +4,26 @@ using UnityEngine;
 
 public class CharacterMovement : MonoBehaviour
 {
-    public float speed = 6.0f;
-    public float gravity = -9.81f;
-    private Rigidbody2D rigidbody2D;
+    public float speed = 6f;
+    public float jumpForce = 5f;
+    private Rigidbody2D rb;
+    private SpriteRenderer sr;
     // Start is called before the first frame update
     void Start()
     {
-        rigidbody2D = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();
+        sr = GetComponent<SpriteRenderer>();
     }
     
     // Update is called once per frame
     void Update()
     {
         float move = Input.GetAxis("Horizontal");
-        rigidbody2D.velocity = new Vector2(move * speed, 0);
+        transform.position += new Vector3(move, 0, 0) * speed * Time.deltaTime;
+
+        if (Input.GetKeyDown(KeyCode.Space) && Mathf.Abs(rb.velocity.y) < 0.05f)
+            rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
+
+        sr.flipX = move < 0 ? true : false;
     }
 }
