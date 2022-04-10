@@ -24,7 +24,14 @@ public class CharacterMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && Mathf.Abs(rb.velocity.y) < 0.05f)
             rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
 
-        sr.flipX = move < 0 ? true : false;
-      
+        if(move < 0)
+        {
+            sr.flipX = true;
+        }
+        if (move > 0)
+        {
+            sr.flipX = false;
+        }
+
     }
 }
