@@ -25,5 +25,6 @@ public class CharacterMovement : MonoBehaviour
             rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
 
         sr.flipX = move < 0 ? true : false;
+      
     }
 }
