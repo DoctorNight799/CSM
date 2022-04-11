@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class CharacterMovement : MonoBehaviour
 {
-    public float speed = 6f;
-    public float jumpForce = 5f;
+    public float speed = 8f;
+    public float jumpForce = 7f;
     private Rigidbody2D rb;
     private SpriteRenderer sr;
     // Start is called before the first frame update
