@@ -4,34 +4,55 @@ using UnityEngine;
 
 public class CharacterMovement : MonoBehaviour
 {
+    public Vector2 moveVector;
+    public Transform groundCheck;
+    public LayerMask Ground;
+
     public float speed = 8f;
     public float jumpForce = 7f;
-    private Rigidbody2D rb;
-    private SpriteRenderer sr;
-    // Start is called before the first frame update
+    public float checkRadius = 0.15f;
+    public bool onGround;
+
+    Rigidbody2D rb;
+    SpriteRenderer sr;
+    
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
     }
     
-    // Update is called once per frame
     void Update()
     {
-        float move = Input.GetAxis("Horizontal");
-        transform.position += new Vector3(move, 0, 0) * speed * Time.deltaTime;
+        Walk();
+        Jump();
+        CheckingGround();
+    }
 
-        if (Input.GetKeyDown(KeyCode.Space) && Mathf.Abs(rb.velocity.y) < 0.05f)
-            rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
+    void Walk()
+    {
+        moveVector.x = Input.GetAxis("Horizontal");
+        rb.velocity = new Vector2(moveVector.x * speed, rb.velocity.y);
 
-        if(move < 0)
-        {
-            sr.flipX = true;
-        }
-        if (move > 0)
+        if (moveVector.x > 0)
         {
             sr.flipX = false;
         }
 
+        if (moveVector.x < 0)
+        {
+            sr.flipX = true;
+        }
+    }
+    void Jump()
+    {
+        if (Input.GetKeyDown(KeyCode.Space) && onGround)
+        {
+            rb.AddForce(Vector2.up * jumpForce);
+        }
+    }
+    void CheckingGround()
+    {
+        onGround = Physics2D.OverlapCircle(groundCheck.position, checkRadius, Ground);
     }
 }

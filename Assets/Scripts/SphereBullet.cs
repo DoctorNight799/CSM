@@ -7,13 +7,12 @@ public class SphereBullet : MonoBehaviour
     public float force = 10f;
     public float timeDestroy = 1f;
 
-    private Rigidbody2D rb;
+    Rigidbody2D rb;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         rb.AddRelativeForce(new Vector2(force, 0), ForceMode2D.Impulse);

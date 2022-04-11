@@ -12,9 +12,10 @@ public class SteampunkPreset : MonoBehaviour
     public Transform Backpos;
 
     public float time = 2;
+
+    public float coolDown = 0;
     public float wallCooldown = 2;
     public float sphereCooldown = 3;
-    public float coolDown = 0;
 
     SpriteRenderer playerSr;
     SphereBullet Bull;
@@ -26,7 +27,6 @@ public class SteampunkPreset : MonoBehaviour
         Bull = sphere.GetComponent<SphereBullet>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         coolDown -= Time.deltaTime;
