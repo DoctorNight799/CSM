@@ -32,7 +32,8 @@ public class CharacterMovement : MonoBehaviour
     void Walk()
     {
         moveVector.x = Input.GetAxis("Horizontal");
-        rb.velocity = new Vector2(moveVector.x * speed, rb.velocity.y);
+        //rb.velocity = new Vector2(moveVector.x * speed, rb.velocity.y);
+        transform.position += new Vector3(moveVector.x, 0, 0) * speed * Time.deltaTime;
 
         if (moveVector.x > 0)
         {
