@@ -6,17 +6,26 @@ public class SteampunkPreset : MonoBehaviour
 {
     public GameObject bullet;
     public GameObject wall;
+    public GameObject platform;
     public GameObject player;
 
     public Transform Startpos;
     public Transform Backpos;
+    public Transform Underpos;
+
+    public LayerMask Ground;
 
     public float time = 2;
 
     public float sphereCoolDownMeta = 3;
     public float wallCoolDownMeta = 2;
-    private float wallCooldown;
+    public float platformCoolDownMeta = 1;
     private float sphereCooldown;
+    private float wallCooldown;
+    private float platformCooldown;
+
+    public bool notEmpty;
+    public float checkedRadius = 0.05f;
 
     SpriteRenderer playerSr;
     SteamBullet Bull;
@@ -25,14 +34,19 @@ public class SteampunkPreset : MonoBehaviour
     {
         sphereCooldown = 0;
         wallCooldown = 0;
+        platformCooldown = 0;
         playerSr = player.GetComponent<SpriteRenderer>();
         Bull = bullet.GetComponent<SteamBullet>();
     }
 
     void Update()
     {
+        checkSpace();
+
         sphereCooldown -= Time.deltaTime;
         wallCooldown -= Time.deltaTime;
+        platformCooldown -= Time.deltaTime;
+
         if (Input.GetKeyDown(KeyCode.U) || time < 2 && time > 0)
         {
             
@@ -78,6 +92,7 @@ public class SteampunkPreset : MonoBehaviour
                 }
             }
         }
+
         if (Input.GetKeyDown(KeyCode.K) && time > 0 && wallCooldown < 0)
         {
             if (!playerSr.flipX)
@@ -93,5 +108,26 @@ public class SteampunkPreset : MonoBehaviour
                 wallCooldown = wallCoolDownMeta;
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.L) && time > 0 && platformCooldown < 0 && !notEmpty)
+        {
+            if (!playerSr.flipX)
+            {
+                Instantiate(platform, Underpos.position, Quaternion.identity);
+                time = 0;
+                platformCooldown = platformCoolDownMeta;
+            }
+            else
+            {
+                Instantiate(platform, Underpos.position, Quaternion.identity);
+                time = 0;
+                platformCooldown = platformCoolDownMeta;
+            }
+        }
+    }
+
+    void checkSpace()
+    {
+        notEmpty = Physics2D.OverlapCircle(Underpos.position, checkedRadius, Ground);
     }
 }
