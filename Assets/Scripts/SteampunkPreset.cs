@@ -21,17 +21,29 @@ public class SteampunkPreset : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q)){
+        if (Input.GetKeyDown(KeyCode.Alpha8) || time < 3 && time > 0)
+        {
+            time -= Time.deltaTime;
+            print(time);
+        }
+        else
+        {
+            time = 3;
+            return;
+        }
+        if (Input.GetKeyDown(KeyCode.U) && time > 0){
             if (!playerSr.flipX)
             {
                 if (Bull.force > 0)
                 {
                     Instantiate(sphere, Startpos.position, Quaternion.identity);
+                    time = 0;
                 }
                 else
                 {
                     Bull.force *= -1;
                     Instantiate(sphere, Startpos.position, Quaternion.identity);
+                    time = 0;
                 }
             }
             else
@@ -39,11 +51,13 @@ public class SteampunkPreset : MonoBehaviour
                 if (Bull.force < 0)
                 {
                     Instantiate(sphere, Backpos.position, Quaternion.identity);
+                    time = 0;
                 }
                 else
                 {
                     Bull.force *= -1;
                     Instantiate(sphere, Backpos.position, Quaternion.identity);
+                    time = 0;
                 }
             }
         }
