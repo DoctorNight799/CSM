@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SphereBullet : MonoBehaviour
+public class SteamBullet : MonoBehaviour
 {
     public float force = 10f;
     public float timeDestroy = 1f;

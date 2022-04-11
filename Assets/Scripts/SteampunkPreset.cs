@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SteampunkPreset : MonoBehaviour
 {
-    public GameObject sphere;
+    public GameObject bullet;
     public GameObject wall;
     public GameObject player;
 
@@ -19,14 +19,14 @@ public class SteampunkPreset : MonoBehaviour
     private float sphereCooldown;
 
     SpriteRenderer playerSr;
-    SphereBullet Bull;
+    SteamBullet Bull;
 
     void Start()
     {
         sphereCooldown = 0;
         wallCooldown = 0;
         playerSr = player.GetComponent<SpriteRenderer>();
-        Bull = sphere.GetComponent<SphereBullet>();
+        Bull = bullet.GetComponent<SteamBullet>();
     }
 
     void Update()
@@ -49,14 +49,14 @@ public class SteampunkPreset : MonoBehaviour
             {
                 if (Bull.force > 0)
                 {
-                    Instantiate(sphere, Startpos.position, Quaternion.identity);
+                    Instantiate(bullet, Startpos.position, Quaternion.identity);
                     time = 0;
                     sphereCooldown = sphereCoolDownMeta;
                 }
                 else
                 {
                     Bull.force *= -1;
-                    Instantiate(sphere, Startpos.position, Quaternion.identity);
+                    Instantiate(bullet, Startpos.position, Quaternion.identity);
                     time = 0;
                     sphereCooldown = sphereCoolDownMeta;
                 }
@@ -65,14 +65,14 @@ public class SteampunkPreset : MonoBehaviour
             {
                 if (Bull.force < 0)
                 {
-                    Instantiate(sphere, Backpos.position, Quaternion.identity);
+                    Instantiate(bullet, Backpos.position, Quaternion.identity);
                     time = 0;
                     sphereCooldown = sphereCoolDownMeta;
                 }
                 else
                 {
                     Bull.force *= -1;
-                    Instantiate(sphere, Backpos.position, Quaternion.identity);
+                    Instantiate(bullet, Backpos.position, Quaternion.identity);
                     time = 0;
                     sphereCooldown = sphereCoolDownMeta;
                 }
