@@ -13,28 +13,30 @@ public class SteampunkPreset : MonoBehaviour
 
     public float time = 2;
 
-    public float coolDown = 0;
-    public float wallCooldown = 2;
-    public float sphereCooldown = 3;
+    public float sphereCoolDownMeta = 3;
+    public float wallCoolDownMeta = 2;
+    private float wallCooldown;
+    private float sphereCooldown;
 
     SpriteRenderer playerSr;
     SphereBullet Bull;
 
     void Start()
     {
-        coolDown = 0;
+        sphereCooldown = 0;
+        wallCooldown = 0;
         playerSr = player.GetComponent<SpriteRenderer>();
         Bull = sphere.GetComponent<SphereBullet>();
     }
 
     void Update()
     {
-        coolDown -= Time.deltaTime;
+        sphereCooldown -= Time.deltaTime;
+        wallCooldown -= Time.deltaTime;
         if (Input.GetKeyDown(KeyCode.U) || time < 2 && time > 0)
         {
             
             time -= Time.deltaTime;
-            print(coolDown);
         }
         else
         {
@@ -42,21 +44,21 @@ public class SteampunkPreset : MonoBehaviour
             return;
         }
         
-        if (Input.GetKeyDown(KeyCode.J) && time > 0 && coolDown < 0){
+        if (Input.GetKeyDown(KeyCode.J) && time > 0 && sphereCooldown < 0){
             if (!playerSr.flipX)
             {
                 if (Bull.force > 0)
                 {
                     Instantiate(sphere, Startpos.position, Quaternion.identity);
                     time = 0;
-                    coolDown = sphereCooldown;
+                    sphereCooldown = sphereCoolDownMeta;
                 }
                 else
                 {
                     Bull.force *= -1;
                     Instantiate(sphere, Startpos.position, Quaternion.identity);
                     time = 0;
-                    coolDown = sphereCooldown;
+                    sphereCooldown = sphereCoolDownMeta;
                 }
             }
             else
@@ -65,30 +67,30 @@ public class SteampunkPreset : MonoBehaviour
                 {
                     Instantiate(sphere, Backpos.position, Quaternion.identity);
                     time = 0;
-                    coolDown = sphereCooldown;
+                    sphereCooldown = sphereCoolDownMeta;
                 }
                 else
                 {
                     Bull.force *= -1;
                     Instantiate(sphere, Backpos.position, Quaternion.identity);
                     time = 0;
-                    coolDown = sphereCooldown;
+                    sphereCooldown = sphereCoolDownMeta;
                 }
             }
         }
-        if (Input.GetKeyDown(KeyCode.K) && time > 0 && coolDown < 0)
+        if (Input.GetKeyDown(KeyCode.K) && time > 0 && wallCooldown < 0)
         {
             if (!playerSr.flipX)
             {
                     Instantiate(wall, Startpos.position, Quaternion.identity);
                     time = 0;
-                coolDown = wallCooldown;
+                wallCooldown = wallCoolDownMeta;
             }
             else
             {
                     Instantiate(wall, Backpos.position, Quaternion.identity);
                     time = 0;
-                coolDown = wallCooldown;
+                wallCooldown = wallCoolDownMeta;
             }
         }
     }
