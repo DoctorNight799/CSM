@@ -74,7 +74,6 @@ public class Invoker : MonoBehaviour
         else
         {
             spell[2] = 0;
-            spell[3] = 0;
             time = 2;
             return;
         }
