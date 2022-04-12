@@ -708,7 +708,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dumping: 3
-  offset: {x: 2, y: 1}
+  offset: {x: 2, y: 2}
   isLeft: 0
 --- !u!20 &519420031
 Camera:
