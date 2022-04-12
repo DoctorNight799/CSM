@@ -49,6 +49,7 @@ public class Invoker : MonoBehaviour
         steampunkSpell();
         spellCast();
         DeadSphere();
+        print(cast);
     }
 
     void checkSpace()
@@ -86,14 +87,6 @@ public class Invoker : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.J) && time > 0 && sphereCooldown < 0)
             spell[3] = 1;
-    }
-
-    void DeadSphere()
-    {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            Instantiate(bullet1, Deadpos.position, Quaternion.identity);
-        }
     }
 
     void steampunkWall()
@@ -154,6 +147,7 @@ public class Invoker : MonoBehaviour
                             sphereCooldown = sphereCoolDownMeta;
                         }
                     }
+                    cast = 1000000;
                     break;
 
                 case 1001200:
@@ -169,14 +163,24 @@ public class Invoker : MonoBehaviour
                         time = 0;
                         wallCooldown = wallCoolDownMeta;
                     }
+                    cast = 1000000;
                     break;
 
                 case 1001300:
                     Instantiate(platform, Underpos.position, Quaternion.identity);
                     time = 0;
                     platformCooldown = platformCoolDownMeta;
+                    cast = 1000000;
                     break;
             }
+        }
+    }
+
+    void DeadSphere()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Instantiate(bullet1, Deadpos.position, Quaternion.identity);
         }
     }
 }
