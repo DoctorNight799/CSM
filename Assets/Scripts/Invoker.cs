@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SteampunkPreset : MonoBehaviour
+public class Invoker : MonoBehaviour
 {
     public GameObject bullet;
+    public GameObject bullet1;
     public GameObject wall;
     public GameObject platform;
     public GameObject player;
@@ -12,6 +13,7 @@ public class SteampunkPreset : MonoBehaviour
     public Transform Startpos;
     public Transform Backpos;
     public Transform Underpos;
+    public Transform Deadpos;
 
     public LayerMask Ground;
 
@@ -42,14 +44,24 @@ public class SteampunkPreset : MonoBehaviour
     void Update()
     {
         checkSpace();
+        steampunkSpell();
+        DeadSphere();
+    }
 
+    void checkSpace()
+    {
+        notEmpty = Physics2D.OverlapCircle(Underpos.position, checkedRadius, Ground);
+    }
+
+    void steampunkSpell()
+    {
         sphereCooldown -= Time.deltaTime;
         wallCooldown -= Time.deltaTime;
         platformCooldown -= Time.deltaTime;
 
         if (Input.GetKeyDown(KeyCode.U) || time < 2 && time > 0)
         {
-            
+
             time -= Time.deltaTime;
         }
         else
@@ -57,8 +69,15 @@ public class SteampunkPreset : MonoBehaviour
             time = 2;
             return;
         }
-        
-        if (Input.GetKeyDown(KeyCode.J) && time > 0 && sphereCooldown < 0){
+
+        steampunkSphere();
+        steampunkWall();
+        steampunkPlatform();
+    }
+    void steampunkSphere()
+    {
+        if (Input.GetKeyDown(KeyCode.J) && time > 0 && sphereCooldown < 0)
+        {
             if (!playerSr.flipX)
             {
                 if (Bull.force > 0)
@@ -92,23 +111,37 @@ public class SteampunkPreset : MonoBehaviour
                 }
             }
         }
+    }
 
+    void DeadSphere()
+    {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            Instantiate(bullet1, Deadpos.position, Quaternion.identity);
+        }
+    }
+
+    void steampunkWall()
+    {
         if (Input.GetKeyDown(KeyCode.K) && time > 0 && wallCooldown < 0)
         {
             if (!playerSr.flipX)
             {
-                    Instantiate(wall, Startpos.position, Quaternion.identity);
-                    time = 0;
+                Instantiate(wall, Startpos.position, Quaternion.identity);
+                time = 0;
                 wallCooldown = wallCoolDownMeta;
             }
             else
             {
-                    Instantiate(wall, Backpos.position, Quaternion.identity);
-                    time = 0;
+                Instantiate(wall, Backpos.position, Quaternion.identity);
+                time = 0;
                 wallCooldown = wallCoolDownMeta;
             }
         }
+    }
 
+    void steampunkPlatform()
+    {
         if (Input.GetKeyDown(KeyCode.L) && time > 0 && platformCooldown < 0 && !notEmpty)
         {
             if (!playerSr.flipX)
@@ -125,11 +158,4 @@ public class SteampunkPreset : MonoBehaviour
             }
         }
     }
-
-    void checkSpace()
-    {
-        notEmpty = Physics2D.OverlapCircle(Underpos.position, checkedRadius, Ground);
-    }
-
-    
 }
