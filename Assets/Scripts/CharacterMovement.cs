@@ -32,6 +32,7 @@ public class CharacterMovement : MonoBehaviour
     void Walk()
     {
         moveVector.x = Input.GetAxis("Horizontal");
+        moveVector.y = Input.GetAxis("Vertical");
         //rb.velocity = new Vector2(moveVector.x * speed, rb.velocity.y);
         transform.position += new Vector3(moveVector.x, 0, 0) * speed * Time.deltaTime;
 
@@ -43,7 +44,7 @@ public class CharacterMovement : MonoBehaviour
     }
     void Jump()
     {
-        if (Input.GetKeyDown(KeyCode.DownArrow))
+        if (moveVector.y < 0)
         {
             Physics2D.IgnoreLayerCollision(6, 7, true);
             Invoke("IgnoreLayerOff", 0.5f);
