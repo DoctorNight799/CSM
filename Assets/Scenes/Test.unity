@@ -707,7 +707,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60dc474d7ca84a844bb17564c29e99e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dumping: 3
+  dumping: 4
   offset: {x: 2, y: 2}
   isLeft: 0
 --- !u!20 &519420031
@@ -737,7 +737,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 6
+  orthographic size: 5.600799
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
