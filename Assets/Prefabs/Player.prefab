@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 9003635793709181151}
   - component: {fileID: 9003635793709181145}
   - component: {fileID: 9003635793709181150}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 9003635793709181144}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -11.16, y: 0.48, z: 0}
-  m_LocalScale: {x: 5.6457, y: 6.232625, z: 0}
+  m_LocalScale: {x: 3.9367225, y: 4.282188, z: 0}
   m_Children:
   - {fileID: 9003635793927026141}
   - {fileID: 9003635795360298233}
@@ -150,21 +150,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bullet: {fileID: 3559579936617066843, guid: 67acc0f6fefe50b45a88cf2ca42a7e6b, type: 3}
+  bullet1: {fileID: 7727442023353866526, guid: 9716e8f76b9420e46a63bf3d5c771628, type: 3}
   wall: {fileID: 4853413287501235847, guid: 408ae8c3b28a4dd459c7f5b077d70a7f, type: 3}
   platform: {fileID: 7960912277297619600, guid: 6279387cfaa5db243b3a777a28ea956f, type: 3}
   player: {fileID: 9003635793709181144}
   Startpos: {fileID: 9003635793927026141}
   Backpos: {fileID: 9003635795360298233}
   Underpos: {fileID: 9003635794261029649}
+  Deadpos: {fileID: 0}
   Ground:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 136
   time: 3
   sphereCoolDownMeta: 3
   wallCoolDownMeta: 2
   platformCoolDownMeta: 1
   notEmpty: 0
-  checkedRadius: 0.05
+  checkedRadius: 0.1
 --- !u!114 &9003635793709181150
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -181,7 +183,7 @@ MonoBehaviour:
   groundCheck: {fileID: 9003635794149163150}
   Ground:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 136
   speed: 5
   jumpForce: 300
   checkRadius: 0.1
@@ -195,7 +197,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9003635793927026141}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Startpos
   m_TagString: Untagged
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
@@ -226,7 +228,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9003635794149163150}
   - component: {fileID: 9003635794149163151}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GroundCheck
   m_TagString: Untagged
   m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
@@ -273,7 +275,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9003635794261029649}
   - component: {fileID: 9003635794261029654}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Underpos
   m_TagString: Untagged
   m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
@@ -288,7 +290,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9003635794261029648}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.039, y: -0.277, z: 0}
+  m_LocalPosition: {x: 0.028, y: -0.162, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 9003635793709181122}
@@ -309,7 +311,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.05
+  m_Radius: 0.1
 --- !u!1 &9003635795360298232
 GameObject:
   m_ObjectHideFlags: 0
@@ -319,7 +321,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9003635795360298233}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Backpos
   m_TagString: Untagged
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}

@@ -5,6 +5,7 @@ using UnityEngine;
 public class Invoker : MonoBehaviour
 {
     public GameObject bullet;
+    public GameObject bullet1;
     public GameObject wall;
     public GameObject platform;
     public GameObject player;
@@ -12,6 +13,7 @@ public class Invoker : MonoBehaviour
     public Transform Startpos;
     public Transform Backpos;
     public Transform Underpos;
+    public Transform Deadpos;
 
     public LayerMask Ground;
 
@@ -43,6 +45,7 @@ public class Invoker : MonoBehaviour
     {
         checkSpace();
         steampunkSpell();
+        DeadSphere();
     }
 
     void checkSpace()
@@ -107,6 +110,14 @@ public class Invoker : MonoBehaviour
                     sphereCooldown = sphereCoolDownMeta;
                 }
             }
+        }
+    }
+
+    void DeadSphere()
+    {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            Instantiate(bullet1, Deadpos.position, Quaternion.identity);
         }
     }
 
