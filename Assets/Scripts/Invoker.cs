@@ -4,16 +4,19 @@ using UnityEngine;
 
 public class Invoker : MonoBehaviour
 {
+    public GameObject player;
+
     public GameObject bullet;
-    public GameObject bullet1;
     public GameObject wall;
     public GameObject platform;
-    public GameObject player;
+
+    public GameObject fireBullet;
+    public GameObject fireWall;
+    public GameObject firePlatform;
 
     public Transform Startpos;
     public Transform Backpos;
     public Transform Underpos;
-    public Transform Deadpos;
 
     public LayerMask Ground;
 
@@ -24,9 +27,12 @@ public class Invoker : MonoBehaviour
     public float sphereCoolDownMeta = 3;
     public float wallCoolDownMeta = 2;
     public float platformCoolDownMeta = 1;
+    public float fireCDMeta = 1;
+
     private float sphereCooldown;
     private float wallCooldown;
     private float platformCooldown;
+    private float fireCD;
 
     public bool notEmpty;
     public float checkedRadius = 0.05f;
@@ -39,6 +45,7 @@ public class Invoker : MonoBehaviour
         sphereCooldown = 0;
         wallCooldown = 0;
         platformCooldown = 0;
+        fireCD = 0;
         playerSr = player.GetComponent<SpriteRenderer>();
         Bull = bullet.GetComponent<SteamBullet>();
     }
@@ -47,8 +54,8 @@ public class Invoker : MonoBehaviour
     {
         checkSpace();
         steampunkSpell();
+        magicSpell();
         spellCast();
-        DeadSphere();
         spell[0] = 1;
     }
 
@@ -83,7 +90,7 @@ public class Invoker : MonoBehaviour
     }
     void steampunkSphere()
     {
-        if (Input.GetKeyDown(KeyCode.J) && time > 0 && sphereCooldown < 0)
+        if (Input.GetKeyDown(KeyCode.H) && time > 0 && sphereCooldown < 0)
         {
             spell[2] = 1;
             print(spell[0] + "" + spell[1] + "" + spell[2] + "" + spell[3] + "" + spell[4] + "" + spell[5] + "" + spell[6]);
@@ -92,7 +99,7 @@ public class Invoker : MonoBehaviour
 
     void steampunkWall()
     {
-        if (Input.GetKeyDown(KeyCode.K) && time > 0 && wallCooldown < 0) {
+        if (Input.GetKeyDown(KeyCode.J) && time > 0 && wallCooldown < 0) {
             spell[2] = 2;
             print(spell[0] + "" + spell[1] + "" + spell[2] + "" + spell[3] + "" + spell[4] + "" + spell[5] + "" + spell[6]);
         }
@@ -100,9 +107,39 @@ public class Invoker : MonoBehaviour
 
     void steampunkPlatform()
     {
-        if (Input.GetKeyDown(KeyCode.L) && time > 0 && platformCooldown < 0 && !notEmpty)
+        if (Input.GetKeyDown(KeyCode.K) && time > 0 && platformCooldown < 0 && !notEmpty)
         {
             spell[2] = 3;
+            print(spell[0] + "" + spell[1] + "" + spell[2] + "" + spell[3] + "" + spell[4] + "" + spell[5] + "" + spell[6]);
+        }
+    }
+
+    void magicSpell()
+    {
+        fireCD -= Time.deltaTime;
+
+        if (Input.GetKeyDown(KeyCode.I) || time < 2 && time > 0)
+        {
+            time -= Time.deltaTime;
+            spell[5] = 1;
+            print(spell[0] + "" + spell[1] + "" + spell[2] + "" + spell[3] + "" + spell[4] + "" + spell[5] + "" + spell[6]);
+        }
+        else
+        {
+            time = 2;
+            for (int i = 0; i < 6; i++)
+                spell[i] = 0;
+            return;
+        }
+
+        FireMagic();
+    }
+
+    void FireMagic()
+    {
+        if (Input.GetKeyDown(KeyCode.H) && time > 0 && fireCD < 0)
+        {
+            spell[6] = 1;
             print(spell[0] + "" + spell[1] + "" + spell[2] + "" + spell[3] + "" + spell[4] + "" + spell[5] + "" + spell[6]);
         }
     }
@@ -153,7 +190,6 @@ public class Invoker : MonoBehaviour
                                 sphereCooldown = sphereCoolDownMeta;
                             }
                         }
-                        cast = 1000000;
                         break;
 
                     case 1120000:
@@ -176,16 +212,71 @@ public class Invoker : MonoBehaviour
                         time = 0;
                         platformCooldown = platformCoolDownMeta;
                         break;
-                }
-                cast = 1000000;
-        }
-    }
 
-    void DeadSphere()
-    {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            Instantiate(bullet1, Deadpos.position, Quaternion.identity);
+                case 1110011:
+                    if (!playerSr.flipX)
+                    {
+                        if (Bull.force > 0)
+                        {
+                            Instantiate(fireBullet, Startpos.position, Quaternion.identity);
+                            time = 0;
+                            sphereCooldown = sphereCoolDownMeta;
+                            fireCD = fireCDMeta;
+                        }
+                        else
+                        {
+                            Bull.force *= -1;
+                            Instantiate(fireBullet, Startpos.position, Quaternion.identity);
+                            time = 0;
+                            sphereCooldown = sphereCoolDownMeta;
+                            fireCD = fireCDMeta;
+                        }
+                    }
+                    else
+                    {
+                        if (Bull.force < 0)
+                        {
+                            Instantiate(fireBullet, Backpos.position, Quaternion.identity);
+                            time = 0;
+                            sphereCooldown = sphereCoolDownMeta;
+                            fireCD = fireCDMeta;
+                        }
+                        else
+                        {
+                            Bull.force *= -1;
+                            Instantiate(fireBullet, Backpos.position, Quaternion.identity);
+                            time = 0;
+                            sphereCooldown = sphereCoolDownMeta;
+                            fireCD = fireCDMeta;
+                        }
+                    }
+                    break;
+
+                case 1120011:
+                    if (!playerSr.flipX)
+                    {
+                        Instantiate(fireWall, Startpos.position, Quaternion.identity);
+                        time = 0;
+                        wallCooldown = wallCoolDownMeta;
+                        fireCD = fireCDMeta;
+                    }
+                    else
+                    {
+                        Instantiate(fireWall, Backpos.position, Quaternion.identity);
+                        time = 0;
+                        wallCooldown = wallCoolDownMeta;
+                        fireCD = fireCDMeta;
+                    }
+                    break;
+
+                case 1130011:
+                    Instantiate(firePlatform, Underpos.position, Quaternion.identity);
+                    time = 0;
+                    platformCooldown = platformCoolDownMeta;
+                    fireCD = fireCDMeta;
+                    break;
+            }
+            cast = 1000000;
         }
     }
 }

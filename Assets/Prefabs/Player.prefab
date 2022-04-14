@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1296879724}
   - component: {fileID: 9003635793709181150}
   - component: {fileID: 9003635793709181145}
+  - component: {fileID: 1501068374}
   - component: {fileID: 9003635793709181148}
   - component: {fileID: 9003635793709181151}
   m_Layer: 6
@@ -80,12 +81,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 857d27d981ba0374b8f1074f391826ce, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 360ce5489f6769c45a325bacd6817fb6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 2}
+  m_Size: {x: 0.5, y: 0.9}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -143,15 +144,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fd113d2d2bb56645b9747127a0fda30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 9003635793709181144}
   bullet: {fileID: 3559579936617066843, guid: 67acc0f6fefe50b45a88cf2ca42a7e6b, type: 3}
-  bullet1: {fileID: 7727442023353866526, guid: 9716e8f76b9420e46a63bf3d5c771628, type: 3}
   wall: {fileID: 4853413287501235847, guid: 408ae8c3b28a4dd459c7f5b077d70a7f, type: 3}
   platform: {fileID: 7960912277297619600, guid: 6279387cfaa5db243b3a777a28ea956f, type: 3}
-  player: {fileID: 9003635793709181144}
+  fireBullet: {fileID: 4619260913848824015, guid: 0a284451d7bb5c14daf87d848663c6d1, type: 3}
+  fireWall: {fileID: 4144120796568705645, guid: 1d71b201104ddd242acb9b9236bdf7af, type: 3}
+  firePlatform: {fileID: 1233359952668589974, guid: 05bd885717f38a84db0685053aab2e11, type: 3}
   Startpos: {fileID: 9003635793927026141}
   Backpos: {fileID: 9003635795360298233}
   Underpos: {fileID: 9003635794261029649}
-  Deadpos: {fileID: 0}
   Ground:
     serializedVersion: 2
     m_Bits: 136
@@ -159,8 +161,23 @@ MonoBehaviour:
   sphereCoolDownMeta: 3
   wallCoolDownMeta: 2
   platformCoolDownMeta: 1
+  fireCDMeta: 1
   notEmpty: 0
   checkedRadius: 0.1
+--- !u!114 &1501068374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9003635793709181144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c6c78a00b6c5834eb9026fd3676668a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bullet: {fileID: 7727442023353866526, guid: 9716e8f76b9420e46a63bf3d5c771628, type: 3}
+  Deadpos: {fileID: 0}
 --- !u!50 &9003635793709181148
 Rigidbody2D:
   serializedVersion: 4
@@ -199,8 +216,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.5, y: 0.86}
-    newSize: {x: 1, y: 2}
+    oldSize: {x: 0.5, y: 0.9}
+    newSize: {x: 0.5, y: 0.9}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
