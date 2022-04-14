@@ -35,6 +35,9 @@ public class Invoker : MonoBehaviour
     private float platformCooldown;
     private float fireCD;
 
+    private bool isMagic = false;
+    private bool isSteam = false;
+
     public bool notEmpty;
     public float checkedRadius = 0.05f;
 
@@ -71,15 +74,17 @@ public class Invoker : MonoBehaviour
         wallCooldown -= Time.deltaTime;
         platformCooldown -= Time.deltaTime;
 
-        if (Input.GetKeyDown(KeyCode.U) || time < 2 && time > 0)
+        if (Input.GetKeyDown(KeyCode.U) || time < 2 && time > 0 && !isMagic)
         {
             time -= Time.deltaTime;
+            isSteam = true;
             spell[1] = 1;
             print(spell[0] + "" + spell[1] + "" + spell[2] + "" + spell[3] + "" + spell[4] + "" + spell[5] + "" + spell[6]);
         }
         else
         {
             time = 2;
+            isSteam = false;
             for (int i = 1; i < 3; i++)
                 spell[i] = 0;
             return;
@@ -94,6 +99,7 @@ public class Invoker : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.H) && time > 0 && sphereCooldown < 0)
         {
             spell[2] = 1;
+            isSteam = false;
             print(spell[0] + "" + spell[1] + "" + spell[2] + "" + spell[3] + "" + spell[4] + "" + spell[5] + "" + spell[6]);
         }
     }
@@ -102,6 +108,7 @@ public class Invoker : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.J) && time > 0 && wallCooldown < 0) {
             spell[2] = 2;
+            isSteam = false;
             print(spell[0] + "" + spell[1] + "" + spell[2] + "" + spell[3] + "" + spell[4] + "" + spell[5] + "" + spell[6]);
         }
     }
@@ -111,6 +118,7 @@ public class Invoker : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.K) && time > 0 && platformCooldown < 0 && !notEmpty)
         {
             spell[2] = 3;
+            isSteam = false;
             print(spell[0] + "" + spell[1] + "" + spell[2] + "" + spell[3] + "" + spell[4] + "" + spell[5] + "" + spell[6]);
         }
     }
@@ -119,15 +127,17 @@ public class Invoker : MonoBehaviour
     {
         fireCD -= Time.deltaTime;
 
-        if (Input.GetKeyDown(KeyCode.I) || mtime < 2 && mtime > 0)
+        if (Input.GetKeyDown(KeyCode.I) || mtime < 2 && mtime > 0 && !isSteam)
         {
             mtime -= Time.deltaTime;
+            isMagic = true;
             spell[5] = 1;
             print(spell[0] + "" + spell[1] + "" + spell[2] + "" + spell[3] + "" + spell[4] + "" + spell[5] + "" + spell[6]);
         }
         else
         {
             mtime = 2;
+            isMagic = false;
             for (int i = 5; i <= 6; i++)
                 spell[i] = 0;
             return;
@@ -141,6 +151,7 @@ public class Invoker : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.H) && mtime > 0 && fireCD < 0)
         {
             spell[6] = 1;
+            isMagic = false;
             print(spell[0] + "" + spell[1] + "" + spell[2] + "" + spell[3] + "" + spell[4] + "" + spell[5] + "" + spell[6]);
         }
     }
