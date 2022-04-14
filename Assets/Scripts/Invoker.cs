@@ -21,6 +21,7 @@ public class Invoker : MonoBehaviour
     public LayerMask Ground;
 
     public float time = 2;
+    public float mtime = 2;
     private int[] spell = new int[7];
     private int cast = 1000000;
 
@@ -79,7 +80,7 @@ public class Invoker : MonoBehaviour
         else
         {
             time = 2;
-            for (int i = 0; i < 6; i++)
+            for (int i = 1; i < 3; i++)
                 spell[i] = 0;
             return;
         }
@@ -118,16 +119,16 @@ public class Invoker : MonoBehaviour
     {
         fireCD -= Time.deltaTime;
 
-        if (Input.GetKeyDown(KeyCode.I) || time < 2 && time > 0)
+        if (Input.GetKeyDown(KeyCode.I) || mtime < 2 && mtime > 0)
         {
-            time -= Time.deltaTime;
+            mtime -= Time.deltaTime;
             spell[5] = 1;
             print(spell[0] + "" + spell[1] + "" + spell[2] + "" + spell[3] + "" + spell[4] + "" + spell[5] + "" + spell[6]);
         }
         else
         {
-            time = 2;
-            for (int i = 0; i < 6; i++)
+            mtime = 2;
+            for (int i = 5; i <= 6; i++)
                 spell[i] = 0;
             return;
         }
@@ -137,7 +138,7 @@ public class Invoker : MonoBehaviour
 
     void FireMagic()
     {
-        if (Input.GetKeyDown(KeyCode.H) && time > 0 && fireCD < 0)
+        if (Input.GetKeyDown(KeyCode.H) && mtime > 0 && fireCD < 0)
         {
             spell[6] = 1;
             print(spell[0] + "" + spell[1] + "" + spell[2] + "" + spell[3] + "" + spell[4] + "" + spell[5] + "" + spell[6]);
@@ -162,32 +163,36 @@ public class Invoker : MonoBehaviour
                         {
                             if (Bull.force > 0)
                             {
-                                Instantiate(bullet, Startpos.position, Quaternion.identity);
-                                time = 0;
-                                sphereCooldown = sphereCoolDownMeta;
+                            Instantiate(bullet, Startpos.position, Quaternion.identity);
+                            time = 0;
+                            mtime = 0;
+                            sphereCooldown = sphereCoolDownMeta;
                             }
                             else
                             {
-                                Bull.force *= -1;
-                                Instantiate(bullet, Startpos.position, Quaternion.identity);
-                                time = 0;
-                                sphereCooldown = sphereCoolDownMeta;
+                            Bull.force *= -1;
+                            Instantiate(bullet, Startpos.position, Quaternion.identity);
+                            time = 0;
+                            mtime = 0;
+                            sphereCooldown = sphereCoolDownMeta;
                             }
                         }
                         else
                         {
                             if (Bull.force < 0)
                             {
-                                Instantiate(bullet, Backpos.position, Quaternion.identity);
-                                time = 0;
-                                sphereCooldown = sphereCoolDownMeta;
+                            Instantiate(bullet, Backpos.position, Quaternion.identity);
+                            time = 0;
+                            mtime = 0;
+                            sphereCooldown = sphereCoolDownMeta;
                             }
                             else
                             {
-                                Bull.force *= -1;
-                                Instantiate(bullet, Backpos.position, Quaternion.identity);
-                                time = 0;
-                                sphereCooldown = sphereCoolDownMeta;
+                            Bull.force *= -1;
+                            Instantiate(bullet, Backpos.position, Quaternion.identity);
+                            time = 0;
+                            mtime = 0;
+                            sphereCooldown = sphereCoolDownMeta;
                             }
                         }
                         break;
@@ -197,12 +202,14 @@ public class Invoker : MonoBehaviour
                         {
                             Instantiate(wall, Startpos.position, Quaternion.identity);
                             time = 0;
+                            mtime = 0;
                             wallCooldown = wallCoolDownMeta;
                         }
                         else
                         {
                             Instantiate(wall, Backpos.position, Quaternion.identity);
                             time = 0;
+                            mtime = 0;
                             wallCooldown = wallCoolDownMeta;
                         }
                         break;
@@ -210,6 +217,7 @@ public class Invoker : MonoBehaviour
                     case 1130000:
                         Instantiate(platform, Underpos.position, Quaternion.identity);
                         time = 0;
+                        mtime = 0;
                         platformCooldown = platformCoolDownMeta;
                         break;
 
@@ -219,6 +227,7 @@ public class Invoker : MonoBehaviour
                         if (Bull.force > 0)
                         {
                             Instantiate(fireBullet, Startpos.position, Quaternion.identity);
+                            mtime = 0;
                             time = 0;
                             sphereCooldown = sphereCoolDownMeta;
                             fireCD = fireCDMeta;
@@ -227,6 +236,7 @@ public class Invoker : MonoBehaviour
                         {
                             Bull.force *= -1;
                             Instantiate(fireBullet, Startpos.position, Quaternion.identity);
+                            mtime = 0;
                             time = 0;
                             sphereCooldown = sphereCoolDownMeta;
                             fireCD = fireCDMeta;
@@ -237,6 +247,7 @@ public class Invoker : MonoBehaviour
                         if (Bull.force < 0)
                         {
                             Instantiate(fireBullet, Backpos.position, Quaternion.identity);
+                            mtime = 0;
                             time = 0;
                             sphereCooldown = sphereCoolDownMeta;
                             fireCD = fireCDMeta;
@@ -245,6 +256,7 @@ public class Invoker : MonoBehaviour
                         {
                             Bull.force *= -1;
                             Instantiate(fireBullet, Backpos.position, Quaternion.identity);
+                            mtime = 0;
                             time = 0;
                             sphereCooldown = sphereCoolDownMeta;
                             fireCD = fireCDMeta;
@@ -256,6 +268,7 @@ public class Invoker : MonoBehaviour
                     if (!playerSr.flipX)
                     {
                         Instantiate(fireWall, Startpos.position, Quaternion.identity);
+                        mtime = 0;
                         time = 0;
                         wallCooldown = wallCoolDownMeta;
                         fireCD = fireCDMeta;
@@ -263,6 +276,7 @@ public class Invoker : MonoBehaviour
                     else
                     {
                         Instantiate(fireWall, Backpos.position, Quaternion.identity);
+                        mtime = 0;
                         time = 0;
                         wallCooldown = wallCoolDownMeta;
                         fireCD = fireCDMeta;
@@ -271,6 +285,7 @@ public class Invoker : MonoBehaviour
 
                 case 1130011:
                     Instantiate(firePlatform, Underpos.position, Quaternion.identity);
+                    mtime = 0;
                     time = 0;
                     platformCooldown = platformCoolDownMeta;
                     fireCD = fireCDMeta;
