@@ -35,8 +35,8 @@ public class Invoker : MonoBehaviour
     private float platformCooldown;
     private float fireCD;
 
-    private bool isMagic = false;
-    private bool isSteam = false;
+    private bool isMagic = true;
+    private bool isSteam = true;
 
     public bool notEmpty;
     public float checkedRadius = 0.05f;
@@ -74,17 +74,24 @@ public class Invoker : MonoBehaviour
         wallCooldown -= Time.deltaTime;
         platformCooldown -= Time.deltaTime;
 
-        if (Input.GetKeyDown(KeyCode.U) || time < 2 && time > 0 && !isMagic)
+        if (Input.GetKeyDown(KeyCode.U) || time < 2 && time > 0)
         {
             time -= Time.deltaTime;
-            isSteam = true;
+            if(spell[2] == 0)
+            {
+                isMagic = false;
+            }
+            else
+            {
+                isMagic = true;
+            }
             spell[1] = 1;
             print(spell[0] + "" + spell[1] + "" + spell[2] + "" + spell[3] + "" + spell[4] + "" + spell[5] + "" + spell[6]);
         }
         else
         {
             time = 2;
-            isSteam = false;
+            isMagic = true;
             for (int i = 1; i < 3; i++)
                 spell[i] = 0;
             return;
@@ -96,48 +103,52 @@ public class Invoker : MonoBehaviour
     }
     void steampunkSphere()
     {
-        if (Input.GetKeyDown(KeyCode.H) && time > 0 && sphereCooldown < 0)
+        if (Input.GetKeyDown(KeyCode.H) && time > 0 && sphereCooldown < 0 && isSteam)
         {
             spell[2] = 1;
-            isSteam = false;
             print(spell[0] + "" + spell[1] + "" + spell[2] + "" + spell[3] + "" + spell[4] + "" + spell[5] + "" + spell[6]);
         }
     }
 
     void steampunkWall()
     {
-        if (Input.GetKeyDown(KeyCode.J) && time > 0 && wallCooldown < 0) {
+        if (Input.GetKeyDown(KeyCode.J) && time > 0 && wallCooldown < 0 && isSteam) {
             spell[2] = 2;
-            isSteam = false;
             print(spell[0] + "" + spell[1] + "" + spell[2] + "" + spell[3] + "" + spell[4] + "" + spell[5] + "" + spell[6]);
         }
     }
 
     void steampunkPlatform()
     {
-        if (Input.GetKeyDown(KeyCode.K) && time > 0 && platformCooldown < 0 && !notEmpty)
+        if (Input.GetKeyDown(KeyCode.K) && time > 0 && platformCooldown < 0 && !notEmpty && isSteam)
         {
             spell[2] = 3;
-            isSteam = false;
             print(spell[0] + "" + spell[1] + "" + spell[2] + "" + spell[3] + "" + spell[4] + "" + spell[5] + "" + spell[6]);
         }
     }
 
     void magicSpell()
-    {
+    {   
         fireCD -= Time.deltaTime;
 
-        if (Input.GetKeyDown(KeyCode.I) || mtime < 2 && mtime > 0 && !isSteam)
+        if (Input.GetKeyDown(KeyCode.I) || mtime < 2 && mtime > 0)
         {
             mtime -= Time.deltaTime;
-            isMagic = true;
+            if (spell[6] == 0)
+            {
+                isSteam = false;
+            }
+            else
+            {
+                isSteam = true;
+            }
             spell[5] = 1;
             print(spell[0] + "" + spell[1] + "" + spell[2] + "" + spell[3] + "" + spell[4] + "" + spell[5] + "" + spell[6]);
         }
         else
         {
             mtime = 2;
-            isMagic = false;
+            isSteam = true;
             for (int i = 5; i <= 6; i++)
                 spell[i] = 0;
             return;
@@ -148,10 +159,9 @@ public class Invoker : MonoBehaviour
 
     void FireMagic()
     {
-        if (Input.GetKeyDown(KeyCode.H) && mtime > 0 && fireCD < 0)
+        if (Input.GetKeyDown(KeyCode.H) && mtime > 0 && fireCD < 0 && isMagic)
         {
             spell[6] = 1;
-            isMagic = false;
             print(spell[0] + "" + spell[1] + "" + spell[2] + "" + spell[3] + "" + spell[4] + "" + spell[5] + "" + spell[6]);
         }
     }
