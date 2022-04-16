@@ -7,6 +7,7 @@ public class CharacterMovement : MonoBehaviour
     public Vector2 moveVector;
     public Transform groundCheck;
     public LayerMask Ground;
+    public Animator animator;
 
     public float speed = 8f;
     public float jumpForce = 7f;
@@ -15,18 +16,25 @@ public class CharacterMovement : MonoBehaviour
 
     Rigidbody2D rb;
     SpriteRenderer sr;
-    
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
     }
-    
+
     void Update()
     {
         Walk();
         Jump();
         CheckingGround();
+        Anim();
+    }
+
+    void Anim()
+    {
+        animator.SetFloat("Speed", Mathf.Abs(moveVector.x));
+        animator.SetBool("isJump", !onGround);
     }
 
     void Walk()
@@ -54,7 +62,7 @@ public class CharacterMovement : MonoBehaviour
         {
             rb.velocity = new Vector2(rb.velocity.x, 0);
             rb.AddForce(Vector2.up * jumpForce);
-        }       
+        }
     }
     void CheckingGround()
     {
